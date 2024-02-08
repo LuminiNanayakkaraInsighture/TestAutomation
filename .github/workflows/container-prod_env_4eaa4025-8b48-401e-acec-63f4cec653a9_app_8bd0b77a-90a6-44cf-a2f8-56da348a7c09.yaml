@@ -40,7 +40,7 @@ jobs:
       - name: 'Run :: Checkout Specific Commit'
         if: ${{ github.event.client_payload.commitId != null }}
         run: git checkout ${{ github.event.client_payload.commitId }}
-      - name: 'Run :: Decoding Secrets 50135904-7fcd-4d83-b3cd-5644e37f5583'
+      - name: 'Run :: Decoding Secrets 6bfe2a9d-5ce5-45af-ada6-ee7793180fc5'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
@@ -89,7 +89,6 @@ jobs:
               # Minifying Json
               jq -c '.' ${{ env.IMAGE_TAG }}-trivy-result.json > ${{ env.IMAGE_TAG }}-trivy-result.min.json
               trivy_result=$(cat "${{ env.IMAGE_TAG }}-trivy-result.min.json")
-              echo "trivy_result: $trivy_result"
 
               # Set the desired severity level
               desiredSeverity="${{ env.SCAN_SEVERITY }}"
@@ -110,6 +109,7 @@ jobs:
 
               if [ "$VULNERABILITY_COUNT" -gt 0 ]; then
                 echo "STEPS_CAN_PROCEED=false" >> $GITHUB_ENV
+                echo "VULNERABILITY_COUNT=$VULNERABILITY_COUNT" >> $GITHUB_ENV
               fi
               echo "ARE_TRIVY_RESULTS_EVALUATED=true" >> $GITHUB_ENV
               
@@ -142,7 +142,7 @@ jobs:
       - build-and-push
     if: needs.build-and-push.outputs.stepsCanProceed == 'true'
     steps:
-      - name: 'Run :: Decoding Secrets ed324b78-641f-4e8b-8b7d-1048b1c712fe'
+      - name: 'Run :: Decoding Secrets fee9665f-d359-484a-bc74-77a1a509ee0b'
         run: |2-
 
                   if [ ! -x "$(command -v jq)" ]; then
